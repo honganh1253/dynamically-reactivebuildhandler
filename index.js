@@ -1,9 +1,22 @@
-function isAnagram(s, t) {
-  if (s.length !== t.length) return false;
-  const count = Array(26).fill(0);
-  for (let i = 0; i < s.length; i++) {
-    count[s.charCodeAt(i) - 97]++;
-    count[t.charCodeAt(i) - 97]--;
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there are elements remaining
+  while (currentIndex !== 0) {
+    // Pick a remaining element
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // Swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
   }
-  return count.every((c) => c === 0);
+
+  return array;
 }
+
+const shuffledDeck = shuffle([1, 2, 3, 4, 5]);
+console.log(shuffledDeck);
