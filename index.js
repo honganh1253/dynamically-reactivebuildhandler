@@ -1,15 +1,10 @@
-function removeNthFromEnd(head, n) {
-  const dummy = new ListNode(0);
-  dummy.next = head;
-  let first = dummy;
-  let second = dummy;
-  for (let i = 1; i <= n + 1; i++) {
-    first = first.next;
+function wiggleSort(nums) {
+  nums.sort((a, b) => a - b);
+  const median = Math.floor((nums.length + 1) / 2);
+  const left = nums.slice(0, median);
+  const right = nums.slice(median);
+  for (let i = 0; i < nums.length; i++) {
+    if (i % 2 === 0) nums[i] = left.pop();
+    else nums[i] = right.pop();
   }
-  while (first !== null) {
-    first = first.next;
-    second = second.next;
-  }
-  second.next = second.next.next;
-  return dummy.next;
 }
