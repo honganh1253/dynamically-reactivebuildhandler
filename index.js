@@ -1,10 +1,35 @@
-function wiggleSort(nums) {
-  nums.sort((a, b) => a - b);
-  const median = Math.floor((nums.length + 1) / 2);
-  const left = nums.slice(0, median);
-  const right = nums.slice(median);
-  for (let i = 0; i < nums.length; i++) {
-    if (i % 2 === 0) nums[i] = left.pop();
-    else nums[i] = right.pop();
+const cycleSort = (arr) => {
+  for (let start = 0; start < arr.length - 1; start++) {
+    let item = arr[start];
+    let pos = start;
+    for (let i = start + 1; i < arr.length; i++) {
+      if (arr[i] < item) {
+        pos++;
+      }
+    }
+    if (pos === start) {
+      continue;
+    }
+    while (item === arr[pos]) {
+      pos++;
+    }
+    if (pos !== start) {
+      [item, arr[pos]] = [arr[pos], item];
+    }
+    while (pos !== start) {
+      pos = start;
+      for (let i = start + 1; i < arr.length; i++) {
+        if (arr[i] < item) {
+          pos++;
+        }
+      }
+      while (item === arr[pos]) {
+        pos++;
+      }
+      if (item !== arr[pos]) {
+        [item, arr[pos]] = [arr[pos], item];
+      }
+    }
   }
-}
+  return arr;
+};
