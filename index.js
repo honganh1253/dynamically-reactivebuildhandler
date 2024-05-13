@@ -1,10 +1,27 @@
-const pullAtValue = (arr, pullArr) => {
-  let removed = [],
-    pushToRemove = arr.forEach((v, i) =>
-      pullArr.includes(v) ? removed.push(v) : v,
-    ),
-    mutateTo = arr.filter((v, i) => !pullArr.includes(v));
-  arr.length = 0;
-  mutateTo.forEach((v) => arr.push(v));
-  return removed;
+function Trie() {
+  this.root = {};
+}
+Trie.prototype.insert = function (word) {
+  let node = this.root;
+  for (const char of word) {
+    if (!node[char]) node[char] = {};
+    node = node[char];
+  }
+  node.isEnd = true;
+};
+Trie.prototype.search = function (word) {
+  let node = this.root;
+  for (const char of word) {
+    if (!node[char]) return false;
+    node = node[char];
+  }
+  return node.isEnd === true;
+};
+Trie.prototype.startsWith = function (prefix) {
+  let node = this.root;
+  for (const char of prefix) {
+    if (!node[char]) return false;
+    node = node[char];
+  }
+  return true;
 };
